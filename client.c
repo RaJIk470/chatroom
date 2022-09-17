@@ -60,6 +60,7 @@ void read_from_server(void *args) {
   //_connect(socketfd, (struct sockaddr *)&serv_addr, sizeof(serv_addr));
   while ((n = read(socketfd, buff, BUFF_SIZE)) > 0) {
     buff[n] = 0;
+    printf("message from server -> %s\n", buff);
     fputs(buff, stdout);
     fflush(stdout);
   }

@@ -46,7 +46,6 @@ int main(void) {
 
   for (;;) {
     connfd = _accept(listenfd, (struct sockaddr *)&client_addr, &addr_len);
-    printf("connfd -> %d\n", connfd);
     clients[client_count].connfd = connfd;
     clients[client_count++].addr = client_addr;
 
@@ -70,7 +69,7 @@ void do_work(void *args) {
     int n;
     if ((n = read(connfd, buff, sizeof(buff))) != 0) {
       buff[n] = 0;
-      _write(connfd, buff, sizeof(buff));
+      //_write(connfd, buff, sizeof(buff));
       send_message_to_all(buff, client, clients);
     }
     // snprintf(buff, BUFF_SIZE, "Hello");
@@ -86,8 +85,6 @@ void send_message_to_all(char *message, struct client *messageSender,
   for (int i = 0; i < client_count; i++) {
     int connfd = clients[i].connfd;
     if (messageSender->connfd != connfd) {
-      printf("messageSender -> %d\n current -> %d\n", messageSender->connfd,
-             connfd);
       // if (messageSender->addr.sin_addr.s_addr !=
       //     clients[i].addr.sin_addr.s_addr) {
       //_connect(sockfd, (struct sockaddr *)&clients[i], sizeof(clients[i]));
