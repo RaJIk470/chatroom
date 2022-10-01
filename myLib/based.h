@@ -1,6 +1,8 @@
 #include <arpa/inet.h>
+#include <pthread.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 #include <strings.h>
 #include <sys/socket.h>
 #include <sys/types.h>
@@ -24,3 +26,6 @@ int _accept(int fd, struct sockaddr *__restrict addr,
 int _close(int fd);
 
 int _write(int fd, const void *buf, size_t n);
+
+int _setsockopt(int fd, int level, int optname, const void *optval,
+                socklen_t optlen);
